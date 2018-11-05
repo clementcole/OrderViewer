@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="~/Scripts/app/loading-bar.js"></script>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Sales Order Viewer</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body ng-app="myApp" ng-controller="SearchControl">
+    <div class="top_logo">
+        <img src="~/Content/Images/pottorffLogo.JPG" alt="Logo Goes Here" />
+    </div>
+    <div class="bluebar">
+        <div class="bluebar_text"><b><i>ORDER INFORMATION VIEWER</i></b></div>
+    </div>
+
+
+
+    <div class="searchbar_container">
+        <div class="bar">
+            <input id="searchString" name="searchString" type="text" ng-model="searchString" placeholder="Enter Sales Order" ng-keydown="OnTextChange($event)">
+        </div>
+        <!--{{SearchResults}}-->
+    </div>
+
+
+    <div class="sidenav" ng-show="summary=true;">
+
+        <!--class="{{active}}" >  ng-click="$event.preventDefault()">-->
+        <a href="#" class="Summary_view">
+            <b><i>Summary View - </i></b>
+        </a>
+        <a href="#" class="Documents" bol=false;>
+            <b><i>Documents</i></b><img id="img_logo" img src="@Url.Content("~/Content/Images/pdf.png")" width="20px" height="20px">
+        </a>
+        <div class="subsidenav">
+            <a ng-href="{{'http://pcinet/Engineering/Orders/export/'+searchString + '.edit.pdf'}}" target="pdf-frame" class="Sales_Order">
+                <b style="color:#3d80b8;">Sales Order</b>
+            </a>
+            <a href="{{'http://pcinet/Engineering/Orders/export/'+ searchString + 'OTS.pdf'}}" target="pdf-frame" class="Invoice">
+                <b style="color:#3d80b8;">Order Transmittal</b>
+            </a>
+            <a href="#" class="Invoice">
+                <b style="color:#3d80b8;">Invoice </b><b style="color:#ff0000;">[PENDING]</b>
+            </a>
+            <a href="#" class="Packing_List">
+                <b style="color:#3d80b8;">Packing List </b><b style="color:#ff0000;">[PENDING]</b>
+            </a>
+            <a href="#" class="BOL">
+                <b style="color:#3d80b8;">BOL </b><b style="color:#ff0000;">[PENDING]</b>
+            </a>
+            <a href="#" class="Credit_Memo">
+                <b style="color:#3d80b8;">Credit Memos </b><b style="color:#ff0000;">[PENDING]</b>
+            </a>
+        </div>
+
+        
+        <a href="#" class="Production">
+            <b><i>Production</i></b>
+        </a>
+        <div class="subsidenav">
+            <div ng-repeat="x in SearchResults track by $index">
+                <ol>
+                    <b style="color:#3d80b8;">+Cutsheets</b>
+                    <li style="list-style: none;" , ng-repeat="cutsheets in SearchResults[$index].Cutsheets track by $index">
+                        <a ng-href="{{x.Cutsheets[$index].hyperlink}}" target="pdf-frame" class="Cutsheets"> <b style="color:#3d80b8;"> .{{x.Cutsheets[$index].Model}}</b></a>
+                    </li>
+                </ol>
+            </div>
+
+            <a href="#" class="Invoice">
+                <b style="color:#3d80b8;">Labels </b><b style="color:#ff0000;">[PENDING]</b>
+            </a>
+            <a href="{{'http://pcinet/ShopOrders/PickLists/'+ searchString + '.pdf'}}" target="pdf-frame" class="Packing_List">
+                <b style="color:#3d80b8;">Work Order</b>
+            </a>
+            <a href="#" class="BOL">
+                <b style="color:#3d80b8;">Pick List </b><b style="color:#ff0000;">[PENDING]</b>
+            </a>
+            <a href="#" class="Credit_Memo">
+                <b style="color:#3d80b8;">Engineering Document Request </b><b style="color:#ff0000;">[PENDING]</b>
+            </a>
+        </div> <br />
+
+        <a href="#" class="Specs">
+            <b><i>SPECs</i></b>
+        </a>
+        <div class="subsidenav">
+            <a href="#" class="OTS">
+                <b style="color:#3d80b8;">OTS </b><b style="color:#ff0000;">[PENDING]</b>
+            </a>
+        </div>
+
+        <a href="#" class="XML_Files">
+            <b><i>Transmitted XML Files</i></b> <img id="img_logo" img src="@Url.Content("~/Content/Images/xml.png")" width="20px" height="20px" />
+        </a>
+        <div class="subsidenav" ng-repeat="x in SearchResults track by $index">
+            <li style="list-style: none;" , ng-repeat="xml_file in SearchResults[$index].XML_Files track by $index">
+                @{
+                    var url = Url.Action("GetXMLDownload", "Home", new { fileName = @"{{x.XML_Files[$index].fileName}}", Dir = @"{{x.XML_Files[$index].filePath}}\" });
+                    url = HttpUtility.UrlDecode(url);
+                }
+                <a data-ng-href="@url"> <b style="color:#3d80b8;"> {{x.XML_Files[$index].fileName}}</b></a>
+            </li>
+        </div>
+
+        <a href="#" class="Customers">
+            <b><i>Customer Service</i></b>
+        </a>
+        <div class="subsidenav">
+            <a href="#" class="CN_Document">
+                <b style="color:#3d80b8;">CN Document </b><b style="color:#ff0000;">[PENDING]</b>
+            </a>
+        </div>
+
+        <a href="#" class="Notes">
+            <b><i>Notes</i></b>
+        </a>
+        <div class="subsidenav">
+            <a href="#" class="Communication_log">
+                <b style="color:#3d80b8;">Communication Log </b> <b style="color:#ff0000;">[PENDING]</b>
+            </a>
+        </div>
+
+    </div>
+
+
+
+    <div class="main">
+        @RenderBody()
+    </div>
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script src="~/Scripts/app/jobHeaderController.js"></script>
+
+
+</body>
+</html>

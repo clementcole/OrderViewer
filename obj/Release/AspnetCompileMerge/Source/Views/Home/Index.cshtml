@@ -1,0 +1,93 @@
+﻿@model IEnumerable<SOViewer3.Models.JobHeaderDataModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div id="summary" ng-show="summary">
+    <!--
+    <div id="myItem1"></div> <br />    
+    <script>
+        var bar1 = new ldBar("#myItem1");
+        var bar2 = document.getElementById('myItem1').ldBar;
+        bar1.set(100);
+    </script>
+    -->
+    <h1>Summary View </h1>
+    <section ng-repeat="x in SearchResults">
+        <h2><b style="color:#3d80b8;">Sales Order:  {{x.ReferenceNo}}</b></h2>
+
+        <div id="element1">
+            Production Schedule: {{x.Production_Schedule}}
+        </div>
+        <div id="element2">
+            MFG Notes: {{x.Shipping_Notes}}
+        </div>
+        <br />
+        Brand: {{x.Brand}}<br />
+        Mfg Plants: {{x.Mfg_Plants}}<br />
+        TX MFG Date: <b>{{x.TX_MFG_Date}}</b><br />
+        TX Ship Date: <b>{{x.TX_Ship_Date}}</b><br /><br /><br />
+
+
+        <div id="element3">
+            Customer: <i>{{x.Customer_Code}}</i>
+        </div>
+        <div id="element4">
+            Transmit Date: <i>{{x.Date_Modified}}</i>
+        </div>
+        <br />
+
+        <div id="element5">
+            {{x.Customer_Name}}
+        </div>
+        <div id="element6">
+            Last Edit: <i>{{x.Date_Modified}}</i>
+        </div>
+        <br />
+
+        <div id="element7">
+            <img id="phone_img" img src="@Url.Content("~/Content/Images/phone.svg")" width="20px" height="20px"> : ({{x.Call_Before_Phone_No}})
+        </div>
+        <div id="element8">
+            Last Editor: {{x.Modified_By}}
+        </div>
+        <br />
+        <div id="element1">
+            Job Contact: {{x.Job_Contact}}
+        </div>
+        <br />
+        <div id="element1">
+            Shipping Contact: {{x.Call_Before_Contact}} - {{x.Shipping_Contact}}
+        </div>
+        <br />
+        <div id="element1">
+            Shipping Address: <b>{{x.Ship_to_Address}}{{x.Ship_to_City}},{{x.Ship_to_County}}  {{x.Ship_to_Post_Code}}</b>
+
+        </div>
+        <br /><br />
+
+        <table style="width:100%">
+        <tr>
+            <th>Product(s) Ordered</th>
+            <!--
+                <th>Qty Ordered</th>
+                <th>Qty Produced</th>
+                <th>Qty Shipped</th>
+            -->
+        </tr>
+        <tr ng-repeat="x in SearchResults track by $index">
+            <td ng-repeat="cutsheets in SearchResults[$index].Cutsheets track by $index">
+                <img id="phone_img" img src="@Url.Content("~/Content/Images/globe.svg")" width="20px" height="20px"> Line <b style="color:#3d80b8;">{{x.Cutsheets[$index].Model}}</b>
+            </td>
+            <!--
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            -->
+        </tr>
+        </table>
+    </section>
+    </div>
+
+

@@ -1,0 +1,70 @@
+﻿@model IEnumerable<SOViewer3.Models.JobHeaderDataModel>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div id="summary" ng-show="summary">
+    <h1>Summary View </h1>
+    <section ng-repeat="x in SearchResults">
+        <h2><b style="color:#3d80b8;">Sales Order:  {{x.ReferenceNo}}</b></h2>
+        Brand: {{x.Brand}}<br />
+        Mfg Plants: {{x.Brand}} Texas<br />
+        TX MFG Date: {{x.TX_MFG_Date}}<br />
+        TX Ship Date: {{x.Production_Schedule}}<br /><br />
+        <b><span style="font-size: 20px;">Customer Name: {{x.Customer_Name}}</span></b><br />
+        <b><span style="font-size: 20px;">Customer Phone ({{x.Customer_Phone}})</span></b><br />
+        <b><span style="font-size: 15px;">Shipping Contact: {{x.Shipping_Contact}}</span></b><br />
+        <b><span style="font-size: 15px;">Email Contact: {{x.SelltoContactEmail}}</span></b><br />
+        <b><span style="font-size: 15px;">Shipping Address: {{x.Ship_to_Address}}</span></b><br />
+        <b><span style="font-size: 15px;">Shipping City: {{x.ShiptoCity}}</span></b><br />
+        <b><span style="font-size: 15px;">Shipping State: {{x.ShiptoState}}</span></b><br />
+        <b><span style="font-size: 15px;">Shipping Zip Code: {{x.ShipToZipCode}}</span></b><br />
+    </section>
+</div>
+
+
+<!--Documents Section
+<div id="documents">
+    <h1>Documents</h1>
+    <section ng-repeat="x in SearchResults">
+        <h2><b style="color:#3d80b8;">Documents for {{x.ReferenceNo}}</b></h2>
+    </section>
+</div>
+
+<div id="production">
+    <h1>Production</h1>
+    <section ng-repeat="x in SearchResults">
+        <h2><b style="color:#3d80b8;">Production Status for {{x.ReferenceNo}}</b>     </h2>
+    </section>
+</div>
+
+<div id="specs">
+    <h1>SPECS DOCUMENTS</h1>
+    <section ng-repeat="x in SearchResults">
+        <h2><b style="color:#3d80b8;">SPECS DOCUMENTS FOR {{x.ReferenceNo}}</b></h2>
+    </section>
+</div>
+
+<div id="xml">
+    <h1>Documents</h1>
+    <section ng-repeat="x in SearchResults">
+        <h2><b style="color:#3d80b8;">XML DOCS FOR {{x.ReferenceNo}}</b></h2>
+    </section>
+</div>
+
+<div id="customer_service" >
+    <h1>Customer Service</h1>
+    <section ng-repeat="x in customerDocs">
+        <h2><b style="color:#3d80b8;">Customer Service for {{x.ReferenceNo}}</b></h2>
+    </section>
+</div>
+
+<div id="notes">
+    <h1>Notes</h1>
+    <section ng-repeat="x in notesDocs">
+       <h2><b style="color:#3d80b8;">Notes for Reference{{x.ReferenceNo}}</b></h2>
+    </section>
+</div>
+
+-->
